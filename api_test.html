@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 请求测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .test-button { 
+            background-color: #007bff; color: white; padding: 10px 20px; 
+            border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px;
+        }
+        .test-button:hover { background-color: #0056b3; }
+        .result { 
+            margin-top: 20px; padding: 10px; border-radius: 4px; 
+            background-color: #f8f9fa; border: 1px solid #dee2e6; 
+            white-space: pre-wrap;
+        }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+    </style>
+</head>
+<body>
+    <h1>合同管理系统 API 测试</h1>
+    
+    <div>
+        <button class="test-button" onclick="testGenerateContractNo()">测试生成合同编号</button>
+        <button class="test-button" onclick="testContractList()">测试获取合同列表</button>
+        <button class="test-button" onclick="testAddContract()">测试新增合同</button>
+    </div>
+    
+    <div id="result"></div>
+
+    <script>
+        // 模拟token（实际项目中应该从localStorage或其他地方获取）
+        const mockToken = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjBjMWUzZDdhLWMzZjMtNDkzYi1hNzEyLWJjMGIxOTVhOGJiOCJ9.example';
+        
+        function showResult(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = message;
+            resultDiv.className = 'result ' + type;
+        }
+        
+        async function testGenerateContractNo() {
+            showResult('正在测试生成合同编号...', 'info');
+            try {
+                const response = await fetch('http://localhost:88/dev-api/contract/generateContractNo', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + mockToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.code === 200) {
+                    showResult(`✅ 生成合同编号成功！\n生成的编号: ${result.data}`, 'success');
+                } else {
+                    showResult(`❌ 生成合同编号失败！\n状态码: ${response.status}\n响应: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求错误: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testContractList() {
+            showResult('正在测试获取合同列表...', 'info');
+            try {
+                const response = await fetch('http://localhost:88/dev-api/contract/list?pageNum=1&pageSize=10', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + mockToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ 获取合同列表成功！\n数据: ${JSON.stringify(result, null, 2)}`, 'success');
+                } else {
+                    showResult(`❌ 获取合同列表失败！\n状态码: ${response.status}\n响应: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求错误: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testAddContract() {
+            showResult('正在测试新增合同...', 'info');
+            try {
+                // 先生成合同编号
+                const generateResponse = await fetch('http://localhost:88/dev-api/contract/generateContractNo', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + mockToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const generateResult = await generateResponse.json();
+                const contractNo = generateResult.data || 'TEST' + Date.now();
+                
+                const contractData = {
+                    contractNo: contractNo,
+                    contractName: '测试合同_' + Date.now(),
+                    mainContent: '这是一个测试合同',
+                    contractAmount: 10000,
+                    signingDate: new Date().toISOString().split('T')[0],
+                    partyA: '甲方公司',
+                    partyB: '乙方公司',
+                    contractStatus: 'DRAFT'
+                };
+                
+                const response = await fetch('http://localhost:88/dev-api/contract', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + mockToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(contractData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.code === 200) {
+                    showResult(`✅ 新增合同成功！\n提交数据: ${JSON.stringify(contractData, null, 2)}\n响应: ${JSON.stringify(result, null, 2)}`, 'success');
+                } else {
+                    showResult(`❌ 新增合同失败！\n状态码: ${response.status}\n提交数据: ${JSON.stringify(contractData, null, 2)}\n响应: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求错误: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
