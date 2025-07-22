@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzt.mapper.PayrollMapper">
+
+    <resultMap id="BaseResultMap" type="com.hzzt.domain.Payroll">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="employeeNumber" column="employee_number" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="projectGroup" column="project_group" jdbcType="VARCHAR"/>
+            <result property="attendanceDays" column="attendance_days" jdbcType="INTEGER"/>
+            <result property="actualAttendanceDays" column="actual_attendance_days" jdbcType="INTEGER"/>
+            <result property="performanceEvaluation" column="performance_evaluation" jdbcType="DECIMAL"/>
+            <result property="leaveDays" column="leave_days" jdbcType="INTEGER"/>
+            <result property="monthlyDeduction" column="monthly_deduction" jdbcType="DECIMAL"/>
+            <result property="titleSalary" column="title_salary" jdbcType="DECIMAL"/>
+            <result property="workYearsSalary" column="work_years_salary" jdbcType="DECIMAL"/>
+            <result property="skillSalary" column="skill_salary" jdbcType="DECIMAL"/>
+            <result property="positionPerformance" column="position_performance" jdbcType="DECIMAL"/>
+            <result property="businessPerformance" column="business_performance" jdbcType="DECIMAL"/>
+            <result property="phoneAllowance" column="phone_allowance" jdbcType="DECIMAL"/>
+            <result property="computerAllowance" column="computer_allowance" jdbcType="DECIMAL"/>
+            <result property="housingAllowance" column="housing_allowance" jdbcType="DECIMAL"/>
+            <result property="highTemperatureAllowance" column="high_temperature_allowance" jdbcType="DECIMAL"/>
+            <result property="travelAllowance" column="travel_allowance" jdbcType="DECIMAL"/>
+            <result property="otherBonusAndSubsidy" column="other_bonus_and_subsidy" jdbcType="DECIMAL"/>
+            <result property="totalPayable" column="total_payable" jdbcType="DECIMAL"/>
+            <result property="personalPension" column="personal_pension" jdbcType="DECIMAL"/>
+            <result property="personalUnemploymentInsurance" column="personal_unemployment_insurance" jdbcType="DECIMAL"/>
+            <result property="personalMedicalInsurance" column="personal_medical_insurance" jdbcType="DECIMAL"/>
+            <result property="personalProvidentFund" column="personal_provident_fund" jdbcType="DECIMAL"/>
+            <result property="incomeTax" column="income_tax" jdbcType="DECIMAL"/>
+            <result property="salaryAmount" column="salary_amount" jdbcType="DECIMAL"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,employee_number,name,
+        project_group,attendance_days,actual_attendance_days,
+        performance_evaluation,leave_days,monthly_deduction,
+        title_salary,work_years_salary,skill_salary,
+        position_performance,business_performance,phone_allowance,
+        computer_allowance,housing_allowance,high_temperature_allowance,
+        travel_allowance,other_bonus_and_subsidy,total_payable,
+        personal_pension,personal_unemployment_insurance,personal_medical_insurance,
+        personal_provident_fund,income_tax,salary_amount,
+        remark
+    </sql>
+</mapper>

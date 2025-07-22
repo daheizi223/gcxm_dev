@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzt.mapper.ProjectexpenditureMapper">
+
+    <resultMap id="BaseResultMap" type="com.hzzt.domain.Projectexpenditure">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="projectYear" column="project_year" jdbcType="INTEGER"/>
+            <result property="projectGroup" column="project_group" jdbcType="VARCHAR"/>
+            <result property="projectName" column="project_name" jdbcType="VARCHAR"/>
+            <result property="ownerUnit" column="owner_unit" jdbcType="VARCHAR"/>
+            <result property="laborCost" column="labor_cost" jdbcType="DECIMAL"/>
+            <result property="personnelCount" column="personnel_count" jdbcType="INTEGER"/>
+            <result property="perCapitaCost" column="per_capita_cost" jdbcType="DECIMAL"/>
+            <result property="rent" column="rent" jdbcType="DECIMAL"/>
+            <result property="rentStartDate" column="rent_start_date" jdbcType="DATE"/>
+            <result property="rentEndDate" column="rent_end_date" jdbcType="DATE"/>
+            <result property="carReimbursement" column="car_reimbursement" jdbcType="DECIMAL"/>
+            <result property="otherReimbursements" column="other_reimbursements" jdbcType="DECIMAL"/>
+            <result property="equipmentPurchaseAmount" column="equipment_purchase_amount" jdbcType="DECIMAL"/>
+            <result property="outsourcingCost" column="outsourcing_cost" jdbcType="DECIMAL"/>
+            <result property="averageCost" column="average_cost" jdbcType="DECIMAL"/>
+            <result property="capitalCost" column="capital_cost" jdbcType="DECIMAL"/>
+            <result property="summaryCost" column="summary_cost" jdbcType="DECIMAL"/>
+            <result property="productionValue" column="production_value" jdbcType="DECIMAL"/>
+            <result property="profit" column="profit" jdbcType="DECIMAL"/>
+            <result property="invoiced" column="invoiced" jdbcType="INTEGER"/>
+            <result property="receivedPayment" column="received_payment" jdbcType="INTEGER"/>
+            <result property="profitRate" column="profit_rate" jdbcType="DECIMAL"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,project_year,project_group,
+        project_name,owner_unit,labor_cost,
+        personnel_count,per_capita_cost,rent,
+        rent_start_date,rent_end_date,car_reimbursement,
+        other_reimbursements,equipment_purchase_amount,outsourcing_cost,
+        average_cost,capital_cost,summary_cost,
+        production_value,profit,invoiced,
+        received_payment,profit_rate,create_by,
+        create_time,update_by,update_time
+    </sql>
+</mapper>

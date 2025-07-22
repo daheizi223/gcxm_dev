@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzt.mapper.HrmanMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hzzt.domain.Hrman">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="employeeNumber" column="employee_number" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="department" column="department" jdbcType="VARCHAR"/>
+        <result property="currentProjectDepartment" column="current_project_department" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="professionalField" column="professional_field" jdbcType="VARCHAR"/>
+        <result property="contractCompany" column="contract_company" jdbcType="VARCHAR"/>
+        <result property="socialSecurityAgency" column="social_security_agency" jdbcType="VARCHAR"/>
+        <result property="contractPeriod" column="contract_period" jdbcType="DATE"/>
+        <result property="contractEndDate" column="contract_end_date" jdbcType="DATE"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="ethnicity" column="ethnicity" jdbcType="VARCHAR"/>
+        <result property="politicalStatus" column="political_status" jdbcType="VARCHAR"/>
+        <result property="birthplace" column="birthplace" jdbcType="VARCHAR"/>
+        <result property="idCardNumber" column="id_card_number" jdbcType="VARCHAR"/>
+        <result property="probationPeriod" column="probation_period" jdbcType="VARCHAR"/>
+        <result property="probationSalary" column="probation_salary" jdbcType="DECIMAL"/>
+        <result property="postProbationSalary" column="post_probation_salary" jdbcType="DECIMAL"/>
+        <result property="birthDate" column="birth_date" jdbcType="DATE"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="graduationTime" column="graduation_time" jdbcType="DATE"/>
+        <result property="graduationSchool" column="graduation_school" jdbcType="VARCHAR"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="educationLevel" column="education_level" jdbcType="VARCHAR"/>
+        <result property="degree" column="degree" jdbcType="VARCHAR"/>
+        <result property="startWorkTime" column="start_work_time" jdbcType="DATE"/>
+        <result property="joinCompanyTime" column="join_company_time" jdbcType="DATE"/>
+        <result property="regularTime" column="regular_time" jdbcType="DATE"/>
+        <result property="positionLevel" column="position_level" jdbcType="VARCHAR"/>
+        <result property="titleName" column="title_name" jdbcType="VARCHAR"/>
+        <result property="titleLevel" column="title_level" jdbcType="VARCHAR"/>
+        <result property="titleEvaluationYear" column="title_evaluation_year" jdbcType="INTEGER"/>
+        <result property="archiveLocation" column="archive_location" jdbcType="VARCHAR"/>
+        <result property="hukouLocation" column="hukou_location" jdbcType="VARCHAR"/>
+        <result property="qq" column="qq" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="emergencyContact" column="emergency_contact" jdbcType="VARCHAR"/>
+        <result property="emergencyPhoneNumber" column="emergency_phone_number" jdbcType="VARCHAR"/>
+        <result property="hobby" column="hobby" jdbcType="VARCHAR"/>
+        <result property="previousWorkPlaceAndPosition" column="previous_work_place_and_position" jdbcType="VARCHAR"/>
+        <result property="bank" column="bank" jdbcType="VARCHAR"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="regularSalary" column="regular_salary" jdbcType="DECIMAL"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础列列表 -->
+    <sql id="Base_Column_List">
+        id,employee_number,name,
+        birth_date,age,graduation_time,
+        graduation_school,major,education_level,
+        degree,start_work_time,join_company_time,
+        regular_time,position_level,title_name,
+        title_level,title_evaluation_year,archive_location,
+        hukou_location,qq,phone_number,
+        email,emergency_contact,emergency_phone_number,
+        hobby,previous_work_place_and_position,bank,
+        card_number,regular_salary,employment_status,
+        create_by, create_time, update_by, update_time
+    </sql>
+
+    <!-- 查询单个Hrman -->
+    <select id="selectHrmanById" resultMap="BaseResultMap" parameterType="Long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM hrman
+        WHERE id = #{id}
+    </select>
+
+    <!-- 查询Hrman列表 -->
+    <select id="selectHrmanList" resultMap="BaseResultMap" parameterType="com.hzzt.domain.Hrman">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM hrman
+        <where>
+            <if test="employeeNumber != null">AND employee_number LIKE CONCAT('%', #{employeeNumber}, '%')</if>
+            <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
+            <if test="birthDate != null">AND birth_date = #{birthDate}</if>
+            <!-- 可以根据其他字段添加条件 -->
+        </where>
+    </select>
+
+    <!-- 插入Hrman -->
+    <insert id="insertHrman" parameterType="com.hzzt.domain.Hrman">
+        INSERT INTO hrman (
+            employee_number, name, birth_date, age, graduation_time,
+            graduation_school, major, education_level, degree, start_work_time,
+            join_company_time, regular_time, position_level, title_name,
+            title_level, title_evaluation_year, archive_location, hukou_location,
+            qq, phone_number, email, emergency_contact, emergency_phone_number,
+            hobby, previous_work_place_and_position, bank, card_number,
+            regular_salary, employment_status, create_by, create_time, update_by, update_time
+        ) VALUES (
+                     #{employeeNumber}, #{name}, #{birthDate}, #{age}, #{graduationTime},
+                     #{graduationSchool}, #{major}, #{educationLevel}, #{degree}, #{startWorkTime},
+                     #{joinCompanyTime}, #{regularTime}, #{positionLevel}, #{titleName},
+                     #{titleLevel}, #{titleEvaluationYear}, #{archiveLocation}, #{hukouLocation},
+                     #{qq}, #{phoneNumber}, #{email}, #{emergencyContact}, #{emergencyPhoneNumber},
+                     #{hobby}, #{previousWorkPlaceAndPosition}, #{bank}, #{cardNumber},
+                     #{regularSalary}, #{employmentStatus}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}
+                 )
+    </insert>
+
+    <!-- 更新Hrman -->
+    <update id="updateHrman" parameterType="com.hzzt.domain.Hrman">
+        UPDATE hrman
+        SET
+            employee_number = #{employeeNumber}, name = #{name}, birth_date = #{birthDate},
+            age = #{age}, graduation_time = #{graduationTime}, graduation_school = #{graduationSchool},
+            major = #{major}, education_level = #{educationLevel}, degree = #{degree},
+            start_work_time = #{startWorkTime}, join_company_time = #{joinCompanyTime},
+            regular_time = #{regularTime}, position_level = #{positionLevel},
+            title_name = #{titleName}, title_level = #{titleLevel},
+            title_evaluation_year = #{titleEvaluationYear}, archive_location = #{archiveLocation},
+            hukou_location = #{hukouLocation}, qq = #{qq}, phone_number = #{phoneNumber},
+            email = #{email}, emergency_contact = #{emergencyContact},
+            emergency_phone_number = #{emergencyPhoneNumber}, hobby = #{hobby},
+            previous_work_place_and_position = #{previousWorkPlaceAndPosition},
+            bank = #{bank}, card_number = #{cardNumber}, regular_salary = #{regularSalary},
+            employment_status = #{employmentStatus}, update_by = #{updateBy}, update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除单个Hrman -->
+    <delete id="deleteHrmanById" parameterType="Long">
+        DELETE FROM hrman WHERE id = #{id}
+    </delete>
+
+    <!-- 批量删除Hrman -->
+    <delete id="deleteHrmanByIds" parameterType="Long[]">
+        DELETE FROM hrman WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

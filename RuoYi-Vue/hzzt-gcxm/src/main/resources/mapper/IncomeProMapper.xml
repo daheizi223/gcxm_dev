@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzt.mapper.IncomeProMapper">
+
+    <resultMap id="BaseResultMap" type="com.hzzt.domain.IncomePro">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="provinces" column="provinces" jdbcType="VARCHAR"/>
+            <result property="cities" column="cities" jdbcType="VARCHAR"/>
+            <result property="nameOfContract" column="name_of_contract" jdbcType="VARCHAR"/>
+            <result property="businessUnits" column="business_units" jdbcType="VARCHAR"/>
+            <result property="profession" column="profession" jdbcType="VARCHAR"/>
+            <result property="year" column="year" jdbcType="VARCHAR"/>
+            <result property="startTime" column="start_time" jdbcType="DATE"/>
+            <result property="stopTime" column="stop_time" jdbcType="DATE"/>
+            <result property="collectionStandard" column="collection_standard" jdbcType="VARCHAR"/>
+            <result property="leader" column="leader" jdbcType="VARCHAR"/>
+            <result property="cooperativeUnit" column="cooperative_unit" jdbcType="VARCHAR"/>
+            <result property="cooperativeUnitPerson" column="cooperative_unit_person" jdbcType="VARCHAR"/>
+            <result property="contractSigningSituation" column="contract_signing_situation" jdbcType="VARCHAR"/>
+            <result property="contractAmount" column="contract_amount" jdbcType="DOUBLE"/>
+            <result property="outsource" column="outsource" jdbcType="VARCHAR"/>
+            <result property="collectionStandardOut" column="collection_standard_Out" jdbcType="VARCHAR"/>
+            <result property="orderNumber" column="order_number" jdbcType="VARCHAR"/>
+            <result property="dateOfSigning" column="date_of_signing" jdbcType="DATE"/>
+            <result property="orderNumberReal" column="order_number_real" jdbcType="VARCHAR"/>
+            <result property="dateOfSigningReal" column="date_of_signing_real" jdbcType="TIMESTAMP"/>
+            <result property="projectReceivables" column="project_receivables" jdbcType="DOUBLE"/>
+            <result property="orderNotes" column="order_Notes" jdbcType="VARCHAR"/>
+            <result property="invoiceNumber1" column="invoice_number1" jdbcType="BIGINT"/>
+            <result property="invoiceAmount1" column="invoice_amount1" jdbcType="DOUBLE"/>
+            <result property="billingTime1" column="billing_time1" jdbcType="DATE"/>
+            <result property="amountReceived1" column="amount_received1" jdbcType="DOUBLE"/>
+            <result property="arrivaTime1" column="arriva_time1" jdbcType="DATE"/>
+            <result property="invoiceNumber2" column="invoice_number2" jdbcType="BIGINT"/>
+            <result property="invoiceAmount2" column="invoice_amount2" jdbcType="DOUBLE"/>
+            <result property="billingTime2" column="billing_time2" jdbcType="DATE"/>
+            <result property="amountReceived2" column="amount_received2" jdbcType="DOUBLE"/>
+            <result property="arrivaTime2" column="arriva_time2" jdbcType="DATE"/>
+            <result property="invoiceNumber3" column="invoice_number3" jdbcType="BIGINT"/>
+            <result property="invoiceAmount3" column="invoice_amount3" jdbcType="DOUBLE"/>
+            <result property="billingTime3" column="billing_time3" jdbcType="DATE"/>
+            <result property="amountReceived3" column="amount_received3" jdbcType="DOUBLE"/>
+            <result property="arrivaTime3" column="arriva_time3" jdbcType="DATE"/>
+            <result property="totalAmountReceived" column="total_amount_received" jdbcType="DOUBLE"/>
+            <result property="paymentRatio" column="payment_ratio" jdbcType="INTEGER"/>
+            <result property="unpaidAmount" column="unpaid_amount" jdbcType="DOUBLE"/>
+            <result property="notes" column="notes" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,provinces,cities,
+        name_of_contract,business_units,profession,
+        year,start_time,stop_time,
+        collection_standard,leader,cooperative_unit,
+        cooperative_unit_person,contract_signing_situation,contract_amount,
+        outsource,collection_standard_Out,order_number,
+        date_of_signing,order_number_real,date_of_signing_real,
+        project_receivables,order_Notes,invoice_number1,
+        invoice_amount1,billing_time1,amount_received1,
+        arriva_time1,invoice_number2,invoice_amount2,
+        billing_time2,amount_received2,arriva_time2,
+        invoice_number3,invoice_amount3,billing_time3,
+        amount_received3,arriva_time3,total_amount_received,
+        payment_ratio,unpaid_amount,notes,
+        create_by,create_time,update_by,
+        update_time,remark
+    </sql>
+</mapper>

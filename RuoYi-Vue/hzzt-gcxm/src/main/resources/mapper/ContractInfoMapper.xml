@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzt.mapper.ContractInfoMapper">
+    
+    <resultMap type="com.hzzt.domain.ContractInfo" id="ContractInfoResult">
+        <result property="id"                   column="id" />
+        <result property="contractNo"           column="contract_no" />
+        <result property="contractName"         column="contract_name" />
+        <result property="mainContent"          column="main_content" />
+        <result property="contractAmount"       column="contract_amount" />
+        <result property="signingDate"          column="signing_date" />
+        <result property="partyA"               column="party_a" />
+        <result property="partyB"               column="party_b" />
+        <result property="contractStatus"       column="contract_status" />
+        <result property="startDate"            column="start_date" />
+        <result property="endDate"              column="end_date" />
+        <result property="contactPersonA"       column="contact_person_a" />
+        <result property="contactPhoneA"        column="contact_phone_a" />
+        <result property="contactPersonB"       column="contact_person_b" />
+        <result property="contactPhoneB"        column="contact_phone_b" />
+        <result property="remark"               column="remark" />
+        <result property="createBy"             column="create_by" />
+        <result property="createTime"           column="create_time" />
+        <result property="updateBy"             column="update_by" />
+        <result property="updateTime"           column="update_time" />
+        <result property="delFlag"              column="del_flag" />
+    </resultMap>
+
+    <sql id="selectContractInfoVo">
+        select id, contract_no, contract_name, main_content, contract_amount, signing_date, party_a, party_b, 
+               contract_status, start_date, end_date, contact_person_a, contact_phone_a, contact_person_b, 
+               contact_phone_b, remark, create_by, create_time, update_by, update_time, del_flag 
+        from contract_info
+    </sql>
+
+    <select id="selectContractInfoList" parameterType="com.hzzt.domain.ContractInfo" resultMap="ContractInfoResult">
+        <include refid="selectContractInfoVo"/>
+        <where>
+            del_flag = '0'
+            <if test="contractNo != null  and contractNo != ''"> and contract_no like concat('%', #{contractNo}, '%')</if>
+            <if test="contractName != null  and contractName != ''"> and contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="mainContent != null  and mainContent != ''"> and main_content like concat('%', #{mainContent}, '%')</if>
+            <if test="contractAmount != null "> and contract_amount = #{contractAmount}</if>
+            <if test="signingDate != null "> and signing_date = #{signingDate}</if>
+            <if test="partyA != null  and partyA != ''"> and party_a like concat('%', #{partyA}, '%')</if>
+            <if test="partyB != null  and partyB != ''"> and party_b like concat('%', #{partyB}, '%')</if>
+            <if test="contractStatus != null  and contractStatus != ''"> and contract_status = #{contractStatus}</if>
+            <if test="startDate != null "> and start_date &gt;= #{startDate}</if>
+            <if test="endDate != null "> and end_date &lt;= #{endDate}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectContractInfoWithAttachments" parameterType="Long" resultMap="ContractInfoResult">
+        <include refid="selectContractInfoVo"/>
+        where id = #{id} and del_flag = '0'
+    </select>
+
+    <select id="selectContractInfoByContractNo" parameterType="String" resultMap="ContractInfoResult">
+        <include refid="selectContractInfoVo"/>
+        where contract_no = #{contractNo} and del_flag = '0'
+    </select>
+
+    <select id="selectContractCountByStatus" resultMap="ContractInfoResult">
+        select contract_status, count(*) as contract_amount from contract_info 
+        where del_flag = '0' 
+        group by contract_status
+    </select>
+
+    <delete id="deleteContractInfoByIds" parameterType="String">
+        update contract_info set del_flag = '2' where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
